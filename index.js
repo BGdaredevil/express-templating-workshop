@@ -1,5 +1,5 @@
 const env = process.env.NODE_ENV || "development";
-const dBase = require("./config/dBase.js");
+const dBase = require("./config/dBase.js").connectDb;
 
 const config = require("./config/config")[env];
 const app = require("express")();

@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 
-const CubeClass = require("../models/cube.js");
+const CubeModel = require("../models/cube.js");
 
-module.exports = (url) => {
-  return mongoose.connect(url)
-};
+
+
+
+module.exports = {
+  connectDb: (url) => {
+    return mongoose.connect(url)
+  },
+  models: {CubeModel}
+}
