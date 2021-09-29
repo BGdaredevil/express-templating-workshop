@@ -1,6 +1,6 @@
 const uniqid = require("uniqid");
 
-const db = require("../controllers/db.js");
+// const db = require("../controllers/db.js");
 
 class Cube {
   constructor(info) {
@@ -11,9 +11,9 @@ class Cube {
     this.difficultyLevel = info.difficultyLevel;
   }
 
-  static save(cube) {
-    return db.addCube(cube);
-  }
+  // static save(cube) {
+  //   return db.addCube(cube);
+  // }
 
   set name(str) {
     if (str.trim() == "") {
