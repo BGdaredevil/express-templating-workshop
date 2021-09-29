@@ -1,4 +1,6 @@
 const uniqid = require("uniqid");
+const mongoose = require("mongoose")
+
 
 // const db = require("../controllers/db.js");
 
@@ -48,4 +50,8 @@ class Cube {
   }
 }
 
-module.exports = Cube;
+const cubeSchema = new mongoose.Schema().loadClass(Cube);
+const CubeModel = mongoose.model('Cube', cubeSchema);
+
+
+module.exports = CubeModel;
