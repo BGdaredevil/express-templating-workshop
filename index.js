@@ -3,6 +3,8 @@ const dBase = require("./config/dBase.js").connectDb;
 const config = require("./config/config.js")['development'];
 
 console.log(config.dBaseUrl);
+console.log(env);
+console.log(config);
 const app = require("express")();
 
 require("./config/express")(app);
