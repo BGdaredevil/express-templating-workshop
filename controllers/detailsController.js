@@ -11,9 +11,6 @@ const get = (req, res) => {
   CubeModel.findById(req.params.id)
     .lean()
     .then((cube) => {
-      console.log(cube);
-      // console.log("called");
-
       res.render("details", { cube: cube });
     });
 };
