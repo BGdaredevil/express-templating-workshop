@@ -48,6 +48,12 @@ const cubeSchema = new mongoose.Schema({
   _description: String,
   _imageUrl: String,
   _difficultyLevel: Number || String,
+  _Accessories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Accessory",
+    },
+  ],
 });
 cubeSchema.loadClass(Cube);
 const CubeModel = mongoose.model("Cube", cubeSchema);
