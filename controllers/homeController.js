@@ -1,4 +1,3 @@
-const db = require("../controllers/db.js");
 const CubeModel = require("../models/cube.js");
 
 const get = (req, res) => {

@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const CubeModel = require("../models/cube.js");
+const AccessoryModel = require("../models/accessory.js");
 
 module.exports = {
   connectDb: (url) => {
-    return mongoose.connect(url)
+    return mongoose.connect(url);
   },
-  models: {CubeModel}
-}
+  models: { CubeModel, AccessoryModel },
+};
