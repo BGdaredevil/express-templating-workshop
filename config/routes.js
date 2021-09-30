@@ -8,10 +8,7 @@ const accessoryController = require("../controllers/accessoryController.js");
 module.exports = (app) => {
   app.route("/details/:id").get(detailsController.get);
   app.route("/create/accessory").get(accessoryController.getAcc).post(accessoryController.postAcc);
-  app
-    .route("/attach/accessory/:id")
-    .get(accessoryController.serveCube)
-    .post(accessoryController.addAcc);
+  app.route("/attach/accessory/:id").get(accessoryController.serveCube).post(accessoryController.addAcc);
   app.route("/create").get(createController.get).post(createController.post);
   app.route("/about").all((req, res) => res.render("about"));
   app.route("/").get(homeController.get).post(homeController.post);
