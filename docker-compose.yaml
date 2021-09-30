@@ -1,0 +1,36 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  webapp:
+    container_name: webapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: webapp
+    image: webapp
+    ports:
+      - 3030:3030
+    environment:
+      DB_HOST: mongodb
+      DB_PORT: 27017
+  mongo:
+    image: mongo
+    hostname: mongodb
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
