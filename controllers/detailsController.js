@@ -7,6 +7,7 @@ const get = (req, res) => {
     .populate("_Accessories")
     .lean()
     .then((cube) => {
+      // console.log(cube);
       cube.hasAcc = cube._Accessories.length > 0;
       res.render("details", { cube: cube });
     });

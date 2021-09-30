@@ -11,8 +11,6 @@ const postAcc = (req, res) => {
 
 const serveCube = (req, res) => {
   console.log(req.params.id);
-
-  console.log(req.params.id);
   Promise.allSettled([
     CubeModel.findById(req.params.id).populate("_Accessories").lean(),
     AccessoryModel.find().lean(),
