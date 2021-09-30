@@ -1,16 +1,13 @@
-// const db = require("../controllers/db.js");
-
 const CubeModel = require("../config/dBase.js").models.CubeModel;
 
 const get = (req, res) => {
-  // db.getOneCube(req.params.id).then((cube) => {
-  //   res.render("details", { cube: cube });
-  // });
   console.log(req.params.id);
 
   CubeModel.findById(req.params.id)
+    .populate("_Accessories")
     .lean()
     .then((cube) => {
+      cube.hasAcc = cube._Accessories.length > 0;
       res.render("details", { cube: cube });
     });
 };

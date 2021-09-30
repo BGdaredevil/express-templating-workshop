@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
 const AccessorySchema = new mongoose.Schema({
-  _id: mongoose.ObjectId,
+  //   _id: mongoose.ObjectId,
   _name: { type: String, required: true, trim: true },
   _description: { type: String, required: true, maxlength: 10, trim: true },
   _imageUrl: { type: String, required: true, trim: true },
-  _difficultyLevel: { type: String || Number, required: true, trim: true },
   _Cubes: [
     {
       type: mongoose.Schema.Types.ObjectId,

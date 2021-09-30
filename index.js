@@ -2,9 +2,9 @@ const env = process.env.NODE_ENV || "development";
 const dBase = require("./config/dBase.js").connectDb;
 const config = require("./config/config.js")["development"];
 
-console.log(config.dBaseUrl);
-console.log(env);
-console.log(config);
+// console.log(config.dBaseUrl);
+// console.log(env);
+// console.log(config);
 const app = require("express")();
 
 require("./config/express")(app);

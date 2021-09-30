@@ -5,4 +5,15 @@
     {{cube._description}}</p>
   <p><span>Difficulty level:</span> {{cube._difficultyLevel}}</p>
   <a class="btn" href="/">Back</a>
+  <a class="btn" href="/attach/accessory/{{cube._id}}">Attach accessories</a>
+</div>
+<h2>Accessories</h2>
+<div class="accessories">
+  {{#if cube.hasAcc}}
+  {{#each cube._Accessories}}
+  {{> accCard}}
+  {{/each}}
+  {{else }}
+  <h3 class="italic">This cube has no accessories yet...</h3>
+  {{/if}}
 </div>
