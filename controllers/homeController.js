@@ -1,3 +1,5 @@
+const router = require("express").Router({ mergeParams: true });
+
 const CubeModel = require("../models/cube.js");
 
 const get = (req, res) => {
@@ -34,4 +36,7 @@ const post = (req, res) => {
     });
 };
 
-module.exports = { get, post };
+router.get("/", get);
+router.post("/", post);
+
+module.exports = router;
