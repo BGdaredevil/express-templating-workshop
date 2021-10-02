@@ -1,4 +1,3 @@
-// TODO: Require Controllers...
 const router = require("express").Router();
 
 const createController = require("../controllers/cubeController.js");

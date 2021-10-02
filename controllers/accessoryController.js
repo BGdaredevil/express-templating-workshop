@@ -37,15 +37,6 @@ const serveCube = (req, res) => {
     cube.hasAcc = cube._Accessories.length > 0;
     res.render("attachAccessory", { cube: cube });
   });
-
-  //   CubeModel.findById(req.params.id)
-  //     .populate("_Accessories")
-  //     .lean()
-  //     .then((cube) => {
-  //       cube.hasAcc = cube._Accessories.length > 0;
-  //       console.log(cube);
-  //       res.render("attachAccessory", { cube: cube });
-  //     });
 };
 
 const addAcc = (req, res) => {
@@ -65,5 +56,3 @@ router.get("/add", serveCube);
 router.post("/add", addAcc);
 
 module.exports = router;
-
-// module.exports = { getAcc, postAcc, serveCube, addAcc };
