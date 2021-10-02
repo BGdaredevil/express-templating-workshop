@@ -11,19 +11,12 @@ const postAcc = (req, res) => {
 };
 
 const serveCube = (req, res) => {
-  console.log(req.params.id);
   Promise.allSettled([
     CubeModel.findById(req.params.id).populate("_Accessories").lean(),
     AccessoryModel.find().lean(),
   ]).then(([cube, allAcc]) => {
     cube = cube.value;
     allAcc = allAcc.value;
-    console.log("present now");
-    console.log(cube._Accessories);
-
-    console.log("existing");
-    console.log(allAcc);
-
     cube._Accessories = allAcc.reduce((acc, e) => {
       if (!cube._Accessories.some((x) => x._id.toString() === e._id.toString())) {
         acc.push(e);
@@ -31,17 +24,12 @@ const serveCube = (req, res) => {
       return acc;
     }, []);
 
-    console.log("not attached");
-    console.log(cube._Accessories);
-
     cube.hasAcc = cube._Accessories.length > 0;
-    res.render("attachAccessory", { cube: cube });
+    res.render("accessories/attachAccessory", { cube: cube });
   });
 };
 
 const addAcc = (req, res) => {
-  console.log("called with post " + req.params.id);
-  console.log(req.body);
   CubeModel.findById(req.params.id).then((r) => {
     r._Accessories.push(req.body.accessory);
     r.save().then((a) => {

@@ -4,7 +4,7 @@ const accessoryController = require("../controllers/accessoryController.js");
 const { CubeModel } = require("../config/dBase.js").models;
 
 const returnForm = (req, res) => {
-  res.render("create");
+  res.render("cubes/create");
 };
 
 const processFormData = (req, res) => {
@@ -18,9 +18,8 @@ const returnOneCube = (req, res) => {
     .populate("_Accessories")
     .lean()
     .then((cube) => {
-      // console.log(cube);
       cube.hasAcc = cube._Accessories.length > 0;
-      res.render("details", { cube: cube });
+      res.render("cubes/details", { cube: cube });
     });
 };
 

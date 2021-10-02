@@ -9,7 +9,6 @@ const get = (req, res) => {
 };
 
 const post = (req, res) => {
-  // console.log(req.body);
   CubeModel.find({})
     .lean()
     .then((cubes) => {
