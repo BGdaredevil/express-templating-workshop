@@ -13,6 +13,7 @@ function logger(req, res, next) {
 router.use(logger);
 router.use(homeController);
 router.use("/cube", createController);
+router.use("/accessory", accessoryController);
 router.use("/about", (req, res) => res.render("about"));
 router.use("*", (req, res) => {
   res.render("404");

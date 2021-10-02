@@ -6,7 +6,7 @@
 
                 {{#if cube.hasAcc}}
                 
-                <form action="/attach/accessory/{{cube._id}}" method="post">
+                <form action="/cube/{{cube._id}}/accessory/add" method="post">
                     <label for="accessory">Accessories</label>
                     <select id="accessory" name="accessory" />
                     {{#each cube._Accessories}}
@@ -22,6 +22,6 @@
 
                 {{/if}}
 
-                <a class="btn" href="/details/{{cube._id}}">Back</a>
+                <a class="btn" href="/cube/{{cube._id}}">Back</a>
             </div>
         </main>

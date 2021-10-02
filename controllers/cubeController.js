@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const accessoryController = require("../controllers/accessoryController.js");
 
 const { CubeModel } = require("../config/dBase.js").models;
 
@@ -26,5 +27,6 @@ const returnOneCube = (req, res) => {
 router.get("/create", returnForm);
 router.post("/create", processFormData);
 router.get("/:id", returnOneCube);
+router.use("/:id/accessory", accessoryController);
 
 module.exports = router;

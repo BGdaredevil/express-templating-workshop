@@ -1,3 +1,4 @@
+const router = require("express").Router({ mergeParams: true });
 const { AccessoryModel, CubeModel } = require("../config/dBase.js").models;
 
 const getAcc = (req, res) => {
@@ -10,7 +11,7 @@ const postAcc = (req, res) => {
 };
 
 const serveCube = (req, res) => {
-  //   console.log(req.params.id);
+  console.log(req.params.id);
   Promise.allSettled([
     CubeModel.findById(req.params.id).populate("_Accessories").lean(),
     AccessoryModel.find().lean(),
@@ -53,9 +54,16 @@ const addAcc = (req, res) => {
   CubeModel.findById(req.params.id).then((r) => {
     r._Accessories.push(req.body.accessory);
     r.save().then((a) => {
-      res.redirect(`/details/${req.params.id}`);
+      res.redirect(`/cube/${req.params.id}`);
     });
   });
 };
 
-module.exports = { getAcc, postAcc, serveCube, addAcc };
+router.get("/create", getAcc);
+router.post("/create", postAcc);
+router.get("/add", serveCube);
+router.post("/add", addAcc);
+
+module.exports = router;
+
+// module.exports = { getAcc, postAcc, serveCube, addAcc };
