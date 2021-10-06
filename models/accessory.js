@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const AccessorySchema = new mongoose.Schema({
-  //   _id: mongoose.ObjectId,
   _name: { type: String, required: true, trim: true },
   _description: { type: String, required: true, maxlength: 100, trim: true },
   _imageUrl: { type: String, required: true, trim: true },

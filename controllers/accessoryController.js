@@ -1,5 +1,4 @@
 const router = require("express").Router({ mergeParams: true });
-const { AccessoryModel, CubeModel } = require("../config/dBase.js").models;
 
 const accService = require("../services/accessoriesService.js");
 const cubeService = require("../services/cubeService.js");
@@ -20,23 +19,6 @@ const serveCube = (req, res) => {
       res.render("accessories/attachAccessory", { cube: cube });
     });
   });
-
-  // Promise.allSettled([
-  //   CubeModel.findById(req.params.id).populate("_Accessories").lean(),
-  //   AccessoryModel.find().lean(),
-  // ]).then(([cube, allAcc]) => {
-  //   cube = cube.value;
-  //   allAcc = allAcc.value;
-  //   cube._Accessories = allAcc.reduce((acc, e) => {
-  //     if (!cube._Accessories.some((x) => x._id.toString() === e._id.toString())) {
-  //       acc.push(e);
-  //     }
-  //     return acc;
-  //   }, []);
-
-  //   cube.hasAcc = cube._Accessories.length > 0;
-  //   res.render("accessories/attachAccessory", { cube: cube });
-  // });
 };
 
 const addAcc = (req, res) => {

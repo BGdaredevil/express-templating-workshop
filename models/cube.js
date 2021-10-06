@@ -43,7 +43,6 @@ class Cube {
 }
 
 const cubeSchema = new mongoose.Schema({
-  // _id: String,
   _name: String,
   _description: String,
   _imageUrl: String,
