@@ -39,6 +39,13 @@ const filterCubes = (paramsObj) => {
   return CubeModel.find(searchParams).lean();
 };
 
-const cubeService = { getAllCubes, filterCubes, addCube, getOneCube };
+const addAccessory = (cubeId, accData) => {
+  return CubeModel.findById({ _id: cubeId }).then((cube) => {
+    cube._Accessories.push(accData);
+    return cube.save();
+  });
+};
+
+const cubeService = { getAllCubes, filterCubes, addCube, getOneCube, addAccessory };
 
 module.exports = cubeService;
