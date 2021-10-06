@@ -35,7 +35,6 @@ const filterCubes = (paramsObj) => {
   if (paramsObj.to !== "") {
     searchParams.$and[1] = { _difficultyLevel: { $lte: paramsObj.to } };
   }
-  console.log(searchParams);
   return CubeModel.find(searchParams).lean();
 };
 

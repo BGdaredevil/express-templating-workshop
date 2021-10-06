@@ -12,10 +12,7 @@ const processFormData = (req, res) => {
 };
 
 const returnOneCube = (req, res) => {
-  console.log(req.params.id);
-
   cubeService.getOneCube(req.params.id).then((cube) => {
-    console.log(cube);
     cube.hasAcc = cube._Accessories.length > 0;
     res.render("cubes/details", { cube: cube });
   });
