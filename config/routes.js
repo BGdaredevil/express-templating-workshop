@@ -3,6 +3,7 @@ const router = require("express").Router();
 const createController = require("../controllers/cubeController.js");
 const homeController = require("../controllers/homeController.js");
 const accessoryController = require("../controllers/accessoryController.js");
+const userController = require("../controllers/userController.js");
 
 //debug
 // function logger(req, res, next) {
@@ -14,6 +15,7 @@ const accessoryController = require("../controllers/accessoryController.js");
 router.use(homeController);
 router.use("/cube", createController);
 router.use("/accessory", accessoryController);
+router.use("/user", userController);
 router.use("/about", (req, res) => res.render("about"));
 router.use("*", (req, res) => {
   res.render("404");
