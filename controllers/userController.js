@@ -30,9 +30,15 @@ const loginUser = (req, res) => {
   }
 };
 
+const logoutUser = (req, res) => {
+  res.clearCookie("CubeLoginData");
+  res.redirect("login");
+};
+
 router.get("/register", (req, res) => res.render("user/register"));
 router.post("/register", registerUser);
 router.get("/login", (req, res) => res.render("user/login"));
 router.post("/login", loginUser);
+router.get("/logout", logoutUser);
 
 module.exports = router;
