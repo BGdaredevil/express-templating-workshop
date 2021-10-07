@@ -1,14 +1,17 @@
 const router = require("express").Router();
 
 const authService = require("../services/authService.js");
+const viewObj = require("../utils/decoViewObject.js");
 
 const registerUser = (req, res) => {
-  //   console.log(req.body);
   try {
-    authService.createUser(req.body).then((r) => {
-      console.log(r);
-      res.render("/");
-    });
+    authService
+      .createUser(req.body)
+      .then((r) => {
+        // console.log(r);
+        res.render("user/login", viewObj());
+      })
+      .catch((err) => res.render("user/register", { error: true, message: err.message }));
   } catch (err) {
     res.render("user/register", { error: true, message: err.message });
   }
@@ -17,6 +20,11 @@ const registerUser = (req, res) => {
 const loginUser = (req, res) => {
   try {
     console.log(req.body);
+    authService.login(req.body).then((r) => {
+      console.log(r);
+      res.cookie("CubeLoginData", r);
+      res.redirect("/");
+    });
   } catch (err) {
     res.render("user/login", { error: true, message: err.message });
   }

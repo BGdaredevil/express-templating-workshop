@@ -1,9 +1,14 @@
 const router = require("express").Router();
 
+const viewObj = require("../utils/decoViewObject.js");
+
 const cubeService = require("../services/cubeService.js");
 
 const get = (req, res) => {
-  cubeService.getAllCubes().then((cubes) => res.render("index", { cubes: cubes }));
+  console.log(req.user);
+  cubeService
+    .getAllCubes()
+    .then((cubes) => res.render("index", viewObj({ cubes: cubes }, req.user)));
 };
 
 const post = (req, res) => {
@@ -18,7 +23,7 @@ const post = (req, res) => {
       renderObj.err = "Sorry the search is empty... Try less specific search";
     }
     renderObj.cubes = cubes;
-    res.render("index", renderObj);
+    res.render("index", viewObj(renderObj, req.user));
   });
 };
 

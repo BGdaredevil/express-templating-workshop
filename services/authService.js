@@ -1,7 +1,11 @@
-const userModel = require("../models/user.js");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const userModel = require("../models/user.js");
 
 const saltRounds = 5;
+const secret = "pesho likes gosho";
+const tokenExpDate = "1d";
 
 const createUser = (newUser) => {
   let username = newUser.username.trim();
@@ -23,7 +27,7 @@ const createUser = (newUser) => {
 
     return bcrypt
       .hash(password, saltRounds)
-      .then((hashedPass) => userModel.create({ name: username, password: hashedPass }));
+      .then((hashedPass) => userModel.create({ username: username, password: hashedPass }));
   });
 };
 
@@ -32,18 +36,45 @@ const login = (user) => {
   let password = user.password.trim();
   return userModel.findOne({ username: username }).then((item) => {
     if (!item) {
-      throw new Error("Username or password do not match");
+      return new Error("Username or password do not match");
     }
     return bcrypt.compare(password, item.password).then((res) => {
       if (res) {
-        //wellcome
+        const payload = { id: item._id, username: item.username };
+
+        return new Promise((resolve, reject) => {
+          jwt.sign(payload, secret, { expiresIn: tokenExpDate }, (err, token) => {
+            resolve(token);
+            reject(err);
+          });
+        });
+
+        // return item;
       } else {
-        throw new Error("Username or password do not match");
+        return new Error("Username or password do not match");
       }
     });
   });
 };
 
-const authService = { createUser, login };
+const checkTocken = (req, res, next) => {
+  //   console.log(req?.cookies);
+  const token = req?.cookies["CubeLoginData"];
+  if (token != undefined) {
+    new Promise((resolve, reject) => {
+      jwt.verify(token, secret, {}, (err, tInfo) => {
+        resolve(tInfo);
+        reject(err);
+      });
+    }).then((tt) => {
+      req.user = tt;
+      next();
+    });
+  } else {
+    next();
+  }
+};
+
+const authService = { createUser, login, checkTocken };
 
 module.exports = authService;
