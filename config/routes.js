@@ -19,7 +19,7 @@ router.use("/accessory", accessoryController);
 router.use("/user", userController);
 router.use("/about", (req, res) => res.render("about", viewObj({}, req.user)));
 router.use("*", (req, res) => {
-  res.render("404");
+  res.status(404).render("404");
 });
 
 module.exports = router;
