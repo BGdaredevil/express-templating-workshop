@@ -8,21 +8,16 @@ const registerUser = (req, res) => {
     authService
       .createUser(req.body)
       .then((r) => {
-        console.log(r);
         res.redirect("/user/login");
       })
       .catch((err) => res.render("user/register", { error: true, message: err.message }));
   } catch (err) {
-    // console.log(err);
     res.render("user/register", { error: true, message: err.message });
   }
 };
 
 const loginUser = (req, res) => {
-  console.log(req.body);
   authService.login(req.body).then((token) => {
-    // console.log(token);
-
     if (!token) {
       return res.render("user/login", {
         error: true,

@@ -57,7 +57,6 @@ const login = (user) => {
 };
 
 const checkTocken = (req, res, next) => {
-  //   console.log(req?.cookies);
   const token = req?.cookies["CubeLoginData"];
   if (token != undefined) {
     jwt.verify(token, secret, {}, (err, tInfo) => {
@@ -70,8 +69,6 @@ const checkTocken = (req, res, next) => {
 };
 
 const routeGuard = (req, res, next) => {
-  console.log(req.method, req.path);
-
   if (req.user) {
     if (req.path == "/login" || req.path == "/register") {
       return res.redirect("/");
