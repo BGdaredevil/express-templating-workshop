@@ -9,26 +9,31 @@ const registerUser = (req, res) => {
     authService
       .createUser(req.body)
       .then((r) => {
-        // console.log(r);
-        res.render("user/login", viewObj());
+        console.log(r);
+        res.redirect("/user/login");
       })
       .catch((err) => res.render("user/register", { error: true, message: err.message }));
   } catch (err) {
+    // console.log(err);
     res.render("user/register", { error: true, message: err.message });
   }
 };
 
 const loginUser = (req, res) => {
-  try {
-    console.log(req.body);
-    authService.login(req.body).then((r) => {
-      console.log(r);
-      res.cookie("CubeLoginData", r, { httpOnly: true });
-      res.redirect("/");
-    });
-  } catch (err) {
-    res.render("user/login", { error: true, message: err.message });
-  }
+  console.log(req.body);
+  authService.login(req.body).then((token) => {
+    // console.log(token);
+
+    if (!token) {
+      return res.render("user/login", {
+        error: true,
+        message: "Username or password do not match",
+      });
+    }
+
+    res.cookie("CubeLoginData", token, { httpOnly: true });
+    res.redirect("/");
+  });
 };
 
 const logoutUser = (req, res) => {

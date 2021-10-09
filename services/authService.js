@@ -25,9 +25,7 @@ const createUser = (newUser) => {
       throw new Error("This username is taken");
     }
 
-    return bcrypt
-      .hash(password, saltRounds)
-      .then((hashedPass) => userModel.create({ username: username, password: hashedPass }));
+    return userModel.create({ username, password });
   });
 };
 
@@ -36,10 +34,10 @@ const login = (user) => {
   let password = user.password.trim();
   return userModel.findOne({ username: username }).then((item) => {
     if (!item) {
-      return new Error("Username or password do not match");
+      return null;
     }
-    return bcrypt.compare(password, item.password).then((res) => {
-      if (res) {
+    return item.verifyPass(password).then((isValid) => {
+      if (isValid) {
         const payload = { id: item._id, username: item.username };
 
         return new Promise((resolve, reject) => {
@@ -51,10 +49,8 @@ const login = (user) => {
             }
           });
         });
-
-        // return item;
       } else {
-        return new Error("Username or password do not match");
+        return null;
       }
     });
   });
@@ -74,7 +70,7 @@ const checkTocken = (req, res, next) => {
 };
 
 const routeGuard = (req, res, next) => {
-  // console.log(req.path);
+  console.log(req.method, req.path);
 
   if (req.user) {
     if (req.path == "/login" || req.path == "/register") {
