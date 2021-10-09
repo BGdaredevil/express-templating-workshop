@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const { routeGuard } = require("../services/authService.js");
 const authService = require("../services/authService.js");
-const viewObj = require("../utils/decoViewObject.js");
 
 const registerUser = (req, res) => {
   try {
