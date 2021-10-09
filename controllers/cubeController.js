@@ -21,7 +21,7 @@ const returnOneCube = (req, res) => {
     cube.hasAcc = cube._Accessories.length > 0;
     res.render(
       "cubes/details",
-      viewObj({ cube: cube, isOwner: cube._owner._id == req.user.id }, req.user)
+      viewObj({ cube: cube, isOwner: cube._owner._id == req.user?.id }, req.user)
     );
   });
 };
