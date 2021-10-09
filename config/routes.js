@@ -5,6 +5,7 @@ const createController = require("../controllers/cubeController.js");
 const homeController = require("../controllers/homeController.js");
 const accessoryController = require("../controllers/accessoryController.js");
 const userController = require("../controllers/userController.js");
+const { routeGuard } = require("../services/authService.js");
 
 //debug
 // function logger(req, res, next) {
@@ -15,7 +16,7 @@ const userController = require("../controllers/userController.js");
 
 router.use(homeController);
 router.use("/cube", createController);
-router.use("/accessory", accessoryController);
+router.use("/accessory", routeGuard, accessoryController);
 router.use("/user", userController);
 router.use("/about", (req, res) => res.render("about", viewObj({}, req.user)));
 router.use("*", (req, res) => {

@@ -44,8 +44,11 @@ const login = (user) => {
 
         return new Promise((resolve, reject) => {
           jwt.sign(payload, secret, { expiresIn: tokenExpDate }, (err, token) => {
-            resolve(token);
-            reject(err);
+            if (err) {
+              reject(err);
+            } else {
+              resolve(token);
+            }
           });
         });
 
@@ -61,13 +64,8 @@ const checkTocken = (req, res, next) => {
   //   console.log(req?.cookies);
   const token = req?.cookies["CubeLoginData"];
   if (token != undefined) {
-    new Promise((resolve, reject) => {
-      jwt.verify(token, secret, {}, (err, tInfo) => {
-        resolve(tInfo);
-        reject(err);
-      });
-    }).then((tt) => {
-      req.user = tt;
+    jwt.verify(token, secret, {}, (err, tInfo) => {
+      req.user = tInfo;
       next();
     });
   } else {
@@ -75,6 +73,22 @@ const checkTocken = (req, res, next) => {
   }
 };
 
-const authService = { createUser, login, checkTocken };
+const routeGuard = (req, res, next) => {
+  console.log(req.path);
+
+  if (req.user) {
+    if (req.path == "/login" || req.path == "/register") {
+      return res.redirect("/");
+    }
+    next();
+  } else {
+    if (req.path == "/login" || req.path == "/register") {
+      return next();
+    }
+    res.status(401).redirect("/user/login");
+  }
+};
+
+const authService = { createUser, login, checkTocken, routeGuard };
 
 module.exports = authService;

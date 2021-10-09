@@ -3,21 +3,13 @@ const router = require("express").Router({ mergeParams: true });
 const viewObj = require("../utils/decoViewObject.js");
 const accService = require("../services/accessoriesService.js");
 const cubeService = require("../services/cubeService.js");
+const { routeGuard } = require("../services/authService.js");
 
 const getAcc = (req, res) => {
-  if (!req.user) {
-    res.redirect("/");
-    return;
-  }
-
   res.render("accessories/createAccessory", viewObj({}, true));
 };
 
 const postAcc = (req, res) => {
-  if (!req.user) {
-    res.redirect("/");
-    return;
-  }
   accService.createAcc(req.body).then((r) => res.redirect("/"));
 };
 
@@ -33,10 +25,6 @@ const serveCube = (req, res) => {
 };
 
 const addAcc = (req, res) => {
-  if (!req.user) {
-    res.redirect("/");
-    return;
-  }
   cubeService
     .addAccessory(req.params.id, req.body.accessory)
     .then(() => res.redirect(`/cube/${req.params.id}`));
