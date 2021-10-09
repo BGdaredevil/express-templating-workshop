@@ -44,6 +44,7 @@ const getEditDelete = (req, res) => {
     );
   });
 };
+
 const postEdit = (req, res) => {
   cubeService.editCube(req.params.id, req.body).then(() => {
     res.redirect(`/cube/${req.params.id}`);
@@ -57,10 +58,11 @@ const postDel = (req, res) => {
 router.get("/create", routeGuard, returnForm);
 router.post("/create", routeGuard, processFormData);
 router.get("/:id", returnOneCube);
-router.use("/:id/accessory", routeGuard, accessoryController);
 router.get("/:id/edit", routeGuard, getEditDelete);
 router.post("/:id/edit", routeGuard, postEdit);
 router.get("/:id/delete", routeGuard, getEditDelete);
 router.post("/:id/delete", routeGuard, postDel);
+
+router.use("/:id/accessory", routeGuard, accessoryController);
 
 module.exports = router;

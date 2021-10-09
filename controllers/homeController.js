@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
 const viewObj = require("../utils/decoViewObject.js");
-
 const cubeService = require("../services/cubeService.js");
 
 const get = (req, res) => {
