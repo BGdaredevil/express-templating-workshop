@@ -13,6 +13,8 @@ COPY index.js /app
 COPY config /app/config
 COPY controllers /app/controllers
 COPY models /app/models
+COPY services /app/services
+COPY utils /app/utils
 COPY static /app/static
 COPY views /app/views
 RUN npm install

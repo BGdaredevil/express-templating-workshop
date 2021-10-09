@@ -1,5 +1,5 @@
 const dBase = require("./config/dBase.js").connectDb;
-const config = require("./config/config.js")["development"];
+const config = require("./config/config.js")[process.env.APP_ENV];
 module.exports = config;
 
 const app = require("express")();
