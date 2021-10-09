@@ -74,7 +74,7 @@ const checkTocken = (req, res, next) => {
 };
 
 const routeGuard = (req, res, next) => {
-  console.log(req.path);
+  // console.log(req.path);
 
   if (req.user) {
     if (req.path == "/login" || req.path == "/register") {
