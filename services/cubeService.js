@@ -10,7 +10,6 @@ const getAllCubes = (lean) => {
 };
 
 const getOneCube = (id, lean) => {
-  console.log(id);
   if (!lean) {
     return CubeModel.findById({ _id: id }).populate("_Accessories").lean();
   } else {
@@ -54,6 +53,39 @@ const addAccessory = (cubeId, accData) => {
   });
 };
 
-const cubeService = { getAllCubes, filterCubes, addCube, getOneCube, addAccessory };
+const editCube = (cubeId, newData) => {
+  return CubeModel.findByIdAndUpdate(
+    cubeId,
+    {
+      _name: newData.name,
+      _description: newData.description,
+      _imageUrl: newData.imageUrl,
+      _difficultyLevel: newData.difficultyLevel,
+    },
+    { runValidators: true, new: true }
+  );
+};
+
+const delCube = (cubeId, ownerId) => {
+  return Promise.allSettled([
+    CubeModel.findByIdAndDelete(cubeId),
+    UserModel.findById(ownerId),
+  ]).then(([temp, owner]) => {
+    owner.value._myCubes = owner.value._myCubes.filter(
+      (c) => c._id.toString() != temp.value._id.toString()
+    );
+    return owner.value.save();
+  });
+};
+
+const cubeService = {
+  getAllCubes,
+  filterCubes,
+  addCube,
+  getOneCube,
+  addAccessory,
+  editCube,
+  delCube,
+};
 
 module.exports = cubeService;

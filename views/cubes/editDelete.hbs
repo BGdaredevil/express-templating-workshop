@@ -1,0 +1,39 @@
+{{#if isEdit}}
+<h1>Edit Cube</h1>
+{{else}}
+<h1>Delete Cube</h1>
+{{/if}}
+<div class="form">
+    {{#if isEdit}}
+    <form action="/cube/{{cube._id}}/edit" method="POST">
+    {{else}}
+    <form action="/cube/{{cube._id}}/delete" method="POST">
+    {{/if}}
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{cube._name}}" {{dis}}>
+        <label for="description">Description</label>
+        <textarea id="description" name="description"{{dis}}>{{cube._description}}</textarea>
+        <label for="image">ImageUrl</label>
+        <input type="text" id="image" name="imageUrl" value="{{cube._imageUrl}}" {{dis}}>
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" name="difficultyLevel" {{dis}}/>
+        {{#selectOpt cube._difficultyLevel}}
+        
+        <option value="1" >1 - Very Easy</option>
+        <option value="2" >2 - Easy</option>
+        <option value="3" >3 - Medium (Standard 3x3)</option>
+        <option value="4" >4 - Intermediate</option>
+        <option value="5" >5 - Expert</option>
+        <option value="6" >6 - Hardcore</option>
+        {{/selectOpt}}
+        </select>
+
+        {{#if isEdit}}
+        <input type="submit" value="Edit">
+        {{else}}
+        <input type="submit" value="Delete">
+        {{/if}}
+
+
+    </form>
+</div>
