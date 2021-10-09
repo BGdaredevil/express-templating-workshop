@@ -10,7 +10,9 @@ const returnForm = (req, res) => {
 };
 
 const processFormData = (req, res) => {
-  cubeService.addCube(req.body).then((r) => res.redirect("/"));
+  cubeService.addCube(req.body, req.user.id).then(() => {
+    res.redirect("/");
+  });
 };
 
 const returnOneCube = (req, res) => {

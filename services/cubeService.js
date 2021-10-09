@@ -1,4 +1,5 @@
 const CubeModel = require("../models/cube.js");
+const UserModel = require("../models/user.js");
 
 const getAllCubes = (lean) => {
   if (!lean) {
@@ -16,8 +17,14 @@ const getOneCube = (id, lean) => {
   }
 };
 
-const addCube = (data) => {
-  return CubeModel.create(data);
+const addCube = (data, userId) => {
+  return Promise.allSettled([CubeModel.create(data), UserModel.findById(userId)]).then(
+    ([cube, user]) => {
+      console.log(user.value);
+      user.value._myCubes.push(cube.value);
+      return user.value.save();
+    }
+  );
 };
 
 const filterCubes = (paramsObj) => {
