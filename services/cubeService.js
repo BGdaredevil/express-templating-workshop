@@ -22,7 +22,8 @@ const addCube = (data, userId) => {
     ([cube, user]) => {
       console.log(user.value);
       user.value._myCubes.push(cube.value);
-      return user.value.save();
+      cube.value._owner = user.value;
+      return Promise.allSettled([user.value.save(), cube.value.save()]);
     }
   );
 };

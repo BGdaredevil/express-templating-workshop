@@ -19,7 +19,7 @@ const returnOneCube = (req, res) => {
   //todo: add check for ownership
   cubeService.getOneCube(req.params.id).then((cube) => {
     cube.hasAcc = cube._Accessories.length > 0;
-    res.render("cubes/details", { cube: cube });
+    res.render("cubes/details", viewObj({ cube: cube }, req.user));
   });
 };
 
