@@ -8,6 +8,9 @@ module.exports = {
       process.env.DB_TABLE || "Cubicle"
     }`,
     saltRounds: 5,
+    cookie_name: "CubeLoginData",
+    secret: "pesho likes gosho",
+    tokenExpDate: "1d",
   },
   production: {},
 };

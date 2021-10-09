@@ -1,6 +1,7 @@
 const dBase = require("./config/dBase.js").connectDb;
 const config = require("./config/config.js")["development"];
 module.exports = config;
+
 const app = require("express")();
 
 require("./config/express")(app);

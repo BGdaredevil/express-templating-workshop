@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const { routeGuard } = require("../services/authService.js");
 const authService = require("../services/authService.js");
+const cookie_name = require("../index.js").cookie_name;
 
 const registerUser = (req, res) => {
   try {
@@ -25,13 +26,13 @@ const loginUser = (req, res) => {
       });
     }
 
-    res.cookie("CubeLoginData", token, { httpOnly: true });
+    res.cookie(cookie_name, token, { httpOnly: true });
     res.redirect("/");
   });
 };
 
 const logoutUser = (req, res) => {
-  res.clearCookie("CubeLoginData");
+  res.clearCookie(cookie_name);
   res.redirect("login");
 };
 

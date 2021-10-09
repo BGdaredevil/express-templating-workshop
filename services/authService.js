@@ -3,9 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const userModel = require("../models/user.js");
 
-const saltRounds = 5;
-const secret = "pesho likes gosho";
-const tokenExpDate = "1d";
+const secret = require("../index.js").secret;
+const tokenExpDate = require("../index.js").tokenExpDate;
 
 const createUser = (newUser) => {
   let username = newUser.username.trim();

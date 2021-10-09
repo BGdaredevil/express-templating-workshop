@@ -3,7 +3,6 @@ const router = require("express").Router({ mergeParams: true });
 const viewObj = require("../utils/decoViewObject.js");
 const accService = require("../services/accessoriesService.js");
 const cubeService = require("../services/cubeService.js");
-const { routeGuard } = require("../services/authService.js");
 
 const getAcc = (req, res) => {
   res.render("accessories/createAccessory", viewObj({}, true));
