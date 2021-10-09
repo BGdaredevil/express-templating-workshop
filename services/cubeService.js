@@ -20,7 +20,6 @@ const getOneCube = (id, lean) => {
 const addCube = (data, userId) => {
   return Promise.allSettled([CubeModel.create(data), UserModel.findById(userId)]).then(
     ([cube, user]) => {
-      console.log(user.value);
       user.value._myCubes.push(cube.value);
       cube.value._owner = user.value;
       return Promise.allSettled([user.value.save(), cube.value.save()]);

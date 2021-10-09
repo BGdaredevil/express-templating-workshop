@@ -5,7 +5,6 @@ const viewObj = require("../utils/decoViewObject.js");
 const cubeService = require("../services/cubeService.js");
 
 const get = (req, res) => {
-  console.log(req.user);
   cubeService
     .getAllCubes()
     .then((cubes) => res.render("index", viewObj({ cubes: cubes }, req.user)));

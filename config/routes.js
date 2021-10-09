@@ -8,11 +8,11 @@ const userController = require("../controllers/userController.js");
 const { routeGuard } = require("../services/authService.js");
 
 //debug
-function logger(req, res, next) {
-  console.log(req.path);
-  next();
-}
-router.use(logger);
+// function logger(req, res, next) {
+//   console.log(req.path);
+//   next();
+// }
+// router.use(logger);
 
 router.use(homeController);
 router.use("/cube", createController);

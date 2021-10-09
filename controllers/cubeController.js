@@ -45,8 +45,7 @@ const getEditDelete = (req, res) => {
   });
 };
 const postEdit = (req, res) => {
-  cubeService.editCube(req.params.id, req.body).then((r) => {
-    console.log(r);
+  cubeService.editCube(req.params.id, req.body).then(() => {
     res.redirect(`/cube/${req.params.id}`);
   });
 };
