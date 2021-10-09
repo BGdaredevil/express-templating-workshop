@@ -49,7 +49,7 @@ const cubeSchema = new mongoose.Schema({
   _difficultyLevel: Number || String,
   _owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
   _Accessories: [
     {

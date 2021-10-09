@@ -10,6 +10,7 @@ const getAllCubes = (lean) => {
 };
 
 const getOneCube = (id, lean) => {
+  console.log(id);
   if (!lean) {
     return CubeModel.findById({ _id: id }).populate("_Accessories").lean();
   } else {

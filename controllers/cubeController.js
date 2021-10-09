@@ -17,9 +17,14 @@ const processFormData = (req, res) => {
 
 const returnOneCube = (req, res) => {
   //todo: add check for ownership
+  // console.log(req.params);
   cubeService.getOneCube(req.params.id).then((cube) => {
     cube.hasAcc = cube._Accessories.length > 0;
-    res.render("cubes/details", viewObj({ cube: cube }, req.user));
+    console.log(cube._owner._id == req.user.id);
+    res.render(
+      "cubes/details",
+      viewObj({ cube: cube, isOwner: cube._owner._id == req.user.id }, req.user)
+    );
   });
 };
 
