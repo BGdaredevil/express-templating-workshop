@@ -1,9 +1,10 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
-const router = require("../config/routes.js");
 const path = require("path");
-const { checkTocken } = require("../services/authService.js");
 const cookieParser = require("cookie-parser");
+
+const router = require("../config/routes.js");
+const { checkTocken } = require("../services/authService.js");
 
 module.exports = (app) => {
   app.engine("hbs", handlebars({ extname: "hbs" }));

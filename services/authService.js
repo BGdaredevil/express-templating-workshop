@@ -1,10 +1,9 @@
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-const userModel = require("../models/user.js");
 
 const secret = require("../index.js").secret;
 const tokenExpDate = require("../index.js").tokenExpDate;
+
+const userModel = require("../models/user.js");
 
 const createUser = (newUser) => {
   let username = newUser.username.trim();
