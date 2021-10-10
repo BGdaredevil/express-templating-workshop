@@ -17,7 +17,10 @@ const registerUser = (req, res) => {
   }
 };
 
+// const { body, validationResult } = require("express-validator");
+
 const loginUser = (req, res) => {
+  // console.log(validationResult(req));
   authService.login(req.body).then((token) => {
     if (!token) {
       return res.render("user/login", {
@@ -39,7 +42,7 @@ const logoutUser = (req, res) => {
 router.get("/register", routeGuard, (req, res) => res.render("user/register"));
 router.post("/register", routeGuard, registerUser);
 router.get("/login", routeGuard, (req, res) => res.render("user/login"));
-router.post("/login", routeGuard, loginUser);
+router.post("/login", routeGuard, /*body("username").isEmail(),*/ loginUser);
 router.get("/logout", logoutUser);
 
 module.exports = router;
