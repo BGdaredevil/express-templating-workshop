@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = require("../index.js").saltRounds;
 
 const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true , unique: true, minlength: 5 },
-  password: { type: String, required: true, minlength: 8 },
+  username: { type: String, required: true , unique: true, minlength: 5 , validate: /^[a-z0-9]+$/gi, trim: true},
+  password: { type: String, required: true, minlength: 8 , validate: /^[a-z0-9]+$/gi, trim: true},
   _myCubes: [
     {
       type: mongoose.Schema.Types.ObjectId,

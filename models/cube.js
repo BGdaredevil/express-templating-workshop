@@ -43,9 +43,9 @@ class Cube {
 }
 
 const cubeSchema = new mongoose.Schema({
-  _name: String,
-  _description: String,
-  _imageUrl: String,
+  _name: {type: String, minlength: 5, validate: /[a-z\s0-9]+/gi, trim: true},
+  _description: {type: String, minlength: 20, validate: /[a-z\s0-9]+/gi, trim: true},
+  _imageUrl: {type: String, validate: /^https?:\/{2}/, trim: true},
   _difficultyLevel: Number || String,
   _owner: {
     type: mongoose.Schema.Types.ObjectId,
