@@ -11,44 +11,56 @@ const returnForm = (req, res) => {
 };
 
 const processFormData = (req, res) => {
-  cubeService.addCube(req.body, req.user.id).then(() => {
-    res.redirect("/");
-  });
+  cubeService
+    .addCube(req.body, req.user.id)
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 const returnOneCube = (req, res) => {
-  cubeService.getOneCube(req.params.id).then((cube) => {
-    cube.hasAcc = cube._Accessories.length > 0;
-    res.render(
-      "cubes/details",
-      viewObj({ cube: cube, isOwner: cube._owner._id == req.user?.id }, req.user)
-    );
-  });
+  cubeService
+    .getOneCube(req.params.id)
+    .then((cube) => {
+      cube.hasAcc = cube._Accessories.length > 0;
+      res.render(
+        "cubes/details",
+        viewObj({ cube: cube, isOwner: cube._owner._id == req.user?.id }, req.user)
+      );
+    })
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 const getEditDelete = (req, res) => {
-  cubeService.getOneCube(req.params.id).then((cube) => {
-    res.render(
-      "cubes/editDelete",
-      viewObj(
-        {
-          cube: cube,
-          isEdit: req.path.includes("edit"),
-          dis: req.path.includes("edit") ? "" : "disabled",
-          helpers: {
-            selectOpt: selectOpt,
+  cubeService
+    .getOneCube(req.params.id)
+    .then((cube) => {
+      res.render(
+        "cubes/editDelete",
+        viewObj(
+          {
+            cube: cube,
+            isEdit: req.path.includes("edit"),
+            dis: req.path.includes("edit") ? "" : "disabled",
+            helpers: {
+              selectOpt: selectOpt,
+            },
           },
-        },
-        req.user
-      )
-    );
-  });
+          req.user
+        )
+      );
+    })
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 const postEdit = (req, res) => {
-  cubeService.editCube(req.params.id, req.body).then(() => {
-    res.redirect(`/cube/${req.params.id}`);
-  });
+  cubeService
+    .editCube(req.params.id, req.body)
+    .then(() => {
+      res.redirect(`/cube/${req.params.id}`);
+    })
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 const postDel = (req, res) => {

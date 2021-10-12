@@ -9,24 +9,33 @@ const getAcc = (req, res) => {
 };
 
 const postAcc = (req, res) => {
-  accService.createAcc(req.body).then((r) => res.redirect("/"));
+  accService
+    .createAcc(req.body)
+    .then((r) => res.redirect("/"))
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 const serveCube = (req, res) => {
-  //todo: check ownership
-  cubeService.getOneCube(req.params.id).then((cube) => {
-    accService.getNotAttached(cube._Accessories.map((c) => c._id)).then((notAttList) => {
-      cube._Accessories = notAttList;
-      cube.hasAcc = cube._Accessories.length > 0;
-      res.render("accessories/attachAccessory", viewObj({ cube: cube }, req.user));
-    });
-  });
+  cubeService
+    .getOneCube(req.params.id)
+    .then((cube) => {
+      accService
+        .getNotAttached(cube._Accessories.map((c) => c._id))
+        .then((notAttList) => {
+          cube._Accessories = notAttList;
+          cube.hasAcc = cube._Accessories.length > 0;
+          res.render("accessories/attachAccessory", viewObj({ cube: cube }, req.user));
+        })
+        .catch((err) => res.render("index", { error: true, message: err.message }));
+    })
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 const addAcc = (req, res) => {
   cubeService
     .addAccessory(req.params.id, req.body.accessory)
-    .then(() => res.redirect(`/cube/${req.params.id}`));
+    .then(() => res.redirect(`/cube/${req.params.id}`))
+    .catch((err) => res.render("index", { error: true, message: err.message }));
 };
 
 router.get("/create", getAcc);

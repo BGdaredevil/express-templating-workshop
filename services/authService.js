@@ -11,16 +11,16 @@ const createUser = (newUser) => {
   let repeatPassword = newUser.repeatPassword.trim();
 
   if (username == "" || password == "" || repeatPassword == "") {
-    throw new Error("All fields are mandatory!");
+    return new Promise((resolve) => resolve({ msg: "All fields are mandatory!" }));
   }
 
   if (password !== repeatPassword) {
-    throw new Error("Passwords do not match");
+    return new Promise((resolve) => resolve({ msg: "Passwords do not match" }));
   }
 
   return userModel.find({ username: username }).then((list) => {
     if (list.length > 0) {
-      throw new Error("This username is taken");
+      return new Promise((resolve) => resolve({ msg: "This username is taken" }));
     }
 
     return userModel.create({ username, password });
