@@ -9,7 +9,11 @@ const registerUser = (req, res) => {
     .createUser(req.body)
     .then((r) => {
       if (r.msg) {
-        return res.render("user/register", { error: true, message: r.msg });
+        return res.render("user/register", {
+          error: true,
+          message: r.msg,
+          username: req.body.username,
+        });
       }
       return res.redirect("/user/login");
     })
@@ -18,12 +22,13 @@ const registerUser = (req, res) => {
 
 const loginUser = (req, res) => {
   authService
-    .login(req.body)
+    .login({ username: req.body.username, password: req.body.password })
     .then((token) => {
       if (!token) {
         return res.render("user/login", {
           error: true,
           message: "Username or password do not match",
+          username: req.body.username,
         });
       }
 

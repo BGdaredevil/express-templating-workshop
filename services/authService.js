@@ -14,6 +14,22 @@ const createUser = (newUser) => {
     return new Promise((resolve) => resolve({ msg: "All fields are mandatory!" }));
   }
 
+  if (username.length < 5) {
+    return new Promise((resolve) => resolve({ msg: "Username is too short" }));
+  }
+
+  if (!/^[a-z0-9]+$/gi.test(username)) {
+    return new Promise((resolve) => resolve({ msg: "Username is invalid" }));
+  }
+
+  if (password.length < 8) {
+    return new Promise((resolve) => resolve({ msg: "Password is too short" }));
+  }
+
+  if (!/^[a-z\s0-9]+$/gi.test(password)) {
+    return new Promise((resolve) => resolve({ msg: "Password is invalid" }));
+  }
+
   if (password !== repeatPassword) {
     return new Promise((resolve) => resolve({ msg: "Passwords do not match" }));
   }
