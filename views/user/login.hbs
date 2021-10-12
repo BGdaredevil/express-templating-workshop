@@ -1,12 +1,8 @@
 <h1>Login Form</h1>
 <div class="form">
-  {{#if error}}
-    <h3><strong style="color: red;">{{message}}</strong></h3>
-  {{/if}}
   <form action="/user/login" method="POST">
     <label for="username">Username</label>
     <input type="text" id="username" name="username" />
-
     <label for="password">Password</label>
     <input type="password" id="password" name="password" />
     <input type="submit" value="Login" />

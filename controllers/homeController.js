@@ -18,7 +18,8 @@ const post = (req, res) => {
   cubeService.filterCubes(searchParams).then((cubes) => {
     const renderObj = {};
     if (cubes.length === 0) {
-      renderObj.err = "Sorry the search is empty... Try less specific search";
+      renderObj.error = true
+      renderObj.message = "Sorry the search is empty... Try less specific search";
     }
     renderObj.cubes = cubes;
     res.render("index", viewObj(renderObj, req.user));
