@@ -20,6 +20,7 @@ router.use("/accessory", routeGuard, accessoryController);
 router.use("/user", userController);
 router.use("/about", (req, res) => res.render("about", viewObj({}, req.user)));
 router.use("*", (req, res) => {
+  console.log(res.locals);
   res.status(404).render("404");
 });
 

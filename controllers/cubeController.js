@@ -36,6 +36,10 @@ const getEditDelete = (req, res) => {
   cubeService
     .getOneCube(req.params.id)
     .then((cube) => {
+      if (cube._owner !== req.user._id) {
+        res.redirect("/");
+        return;
+      }
       res.render(
         "cubes/editDelete",
         viewObj(
